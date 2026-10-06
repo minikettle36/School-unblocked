@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Play Game - Unblocked</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html, body {
+        width: 100%;
+        height: 100%;
+        background: #000;
+      }
+
+      body {
+        font-family: Inter, "Segoe UI", sans-serif;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+      }
+
+      .topbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.9rem 1.25rem;
+        background: rgba(0, 0, 0, 0.85);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        flex-shrink: 0;
+      }
+
+      .brand-wrap {
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+      }
+
+      h1 {
+        font-size: 1.3rem;
+        color: #fff;
+        font-weight: 700;
+      }
+
+      .back-link {
+        padding: 0.6rem 1rem;
+        background: #2563eb;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+      }
+
+      .back-link:hover {
+        background: #1d4ed8;
+        transform: translateY(-1px);
+      }
+
+      .game-shell {
+        flex: 1;
+        min-height: 0;
+        position: relative;
+      }
+
+      iframe {
+        display: block;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        background: #000;
+      }
+
+      .loading {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: #fff;
+        font-size: 1.2rem;
+      }
+
+      @media (max-width: 640px) {
+        .topbar {
+          padding: 0.7rem 0.9rem;
+        }
+
+        h1 {
+          font-size: 1.1rem;
+        }
+
+        .back-link {
+          padding: 0.5rem 0.8rem;
+          font-size: 0.8rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand-wrap">
+        <h1 id="game-title">Loading...</h1>
+      </div>
+      <a href="index.html" class="back-link">← Back to Games</a>
+    </header>
+
+    <main class="game-shell">
+      <div class="loading">Loading game...</div>
+      <iframe id="game-frame" title="Game"></iframe>
+    </main>
+
+    <script>
+      const gameMap = {
+        'drive-mad': {
+          title: '🏎️ Drive Mad',
+          url: 'https://anonymousbirb5100.github.io/drive-mad/'
+        },
+        'moto-x3m-2': {
+          title: '🏍️ Moto X3M 2',
+          url: 'https://www.crazygames.com/game/moto-x3m-2'
+        },
+        'flappy-bird': {
+          title: '🐦 Flappy Bird',
+          url: 'https://flappybird.io/'
+        },
+        '2048': {
+          title: '🎯 2048',
+          url: 'https://2048.io/'
+        },
+        'snake': {
+          title: '🐍 Snake',
+          url: 'https://playsnake.org/'
+        },
+        'tetris': {
+          title: '🧩 Tetris',
+          url: 'https://tetris.com/play-tetris'
+        },
+        'cookie-clicker': {
+          title: '🍪 Cookie Clicker',
+          url: 'https://orteil.dashnet.org/cookieclicker/'
+        },
+        'dino-run': {
+          title: '🦖 Dino Run',
+          url: 'https://chromedino.com/'
+        }
+      };
+
+      const params = new URLSearchParams(window.location.search);
+      const game = params.get('game');
+      const gameData = gameMap[game];
+
+      if (gameData) {
+        document.getElementById('game-title').textContent = gameData.title;
+        document.getElementById('game-frame').src = gameData.url;
+      } else {
+        window.location.href = 'index.html';
+      }
+    </script>
+  </body>
+</html>
