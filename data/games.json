@@ -1,0 +1,60 @@
+const state={games:[],category:'all',query:'',sort:'name',visible:192};
+const $=s=>document.querySelector(s);
+const favorites=()=>JSON.parse(localStorage.getItem('nova-favorites')||'[]').map(String);
+const categoryName=c=>({action:'Action & Adventure',strategy:'Strategy & Puzzle',casual:'Casual & Idle',driving:'Driving & Sports'}[c]||c);
+const image=g=>g.localThumb||g.link+g.thumb;
+const popularity=v=>Number(String(v||'0').replace(/[^0-9.]/g,''))*(String(v).includes('B')?1e9:String(v).includes('M')?1e6:String(v).includes('K')?1e3:1);
+
+function escapeHtml(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;','\'':'&#39;'}[c]))}
+const escapeAttr=escapeHtml;
+
+function card(g,i=99,eager=false){
+  const fav=favorites().includes(String(g.id));
+  const fast=eager&&i<8;
+  return `<article class="game-card"><button class="fav-dot ${fav?'on':''}" data-fav="${g.id}" aria-label="Favorite ${escapeHtml(g.name)}"></button><a href="${escapeAttr(g.link)}" target="_blank" rel="noopener" class="game-link"><div class="cover-wrap"><img class="cover" src="${escapeAttr(image(g))}" alt="${escapeAttr(g.name)}" ${fast?'':'loading="lazy"'}/></div><div class="card-text"><strong>${escapeHtml(g.name)}</strong><span>${categoryName(g.category)}</span></div></a></article>`;
+}
+
+function filtered(){
+  let a=state.games.filter(g=>(state.category==='all'||g.category===state.category)&&g.name.toLowerCase().includes(state.query));
+  if(state.sort==='popular') a.sort((x,y)=>popularity(y.popularity)-popularity(x.popularity));
+  return a;
+}
+
+function render(){
+  const games=filtered();
+  $('#resultCount').textContent=`${games.length} game${games.length===1?'':'s'}`;
+  $('#gameGrid').innerHTML=games.slice(0,state.visible).map((g,i)=>card(g,i,false)).join('');
+  bindFavs();
+  $('#empty').hidden=games.length>0;
+  $('#loadMore').hidden=games.length<=state.visible;
+}
+
+function renderPopular(){
+  const games=[...state.games].sort((a,b)=>popularity(b.popularity)-popularity(a.popularity)).slice(0,24);
+  $('#popularGrid').innerHTML=games.map((g,i)=>card(g,i,true)).join('');
+  bindFavs();
+}
+
+function bindFavs(){
+  document.querySelectorAll('.fav-dot').forEach(b=>{b.onclick=e=>{e.preventDefault();e.stopPropagation();let a=favorites(),id=String(b.dataset.fav);a=a.includes(id)?a.filter(x=>x!==id):[...a,id];localStorage.setItem('nova-favorites',JSON.stringify(a));render();};});
+}
+
+fetch('data/games.json').then(r=>r.json()).then(d=>{
+  state.games=d.games;
+  const cats=['all',...new Set(d.games.map(g=>g.category))];
+  $('#categories').innerHTML=cats.map(c=>`<button class="${c==='all'?'active':''}" data-category="${escapeAttr(c)}">${categoryName(c)}</button>`).join('');
+  document.querySelectorAll('#categories button').forEach(b=>b.onclick=()=>{
+    document.querySelectorAll('#categories button').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    state.category=b.dataset.category;
+    state.visible=192;
+    render();
+  });
+  render();
+  renderPopular();
+}).catch(e=>console.error('Failed to load games:',e));
+
+$('#search').addEventListener('input',e=>{state.query=e.target.value.trim().toLowerCase();state.visible=192;render();});
+$('#sort').addEventListener('change',e=>{state.sort=e.target.value;render();});
+$('#loadMore').addEventListener('click',()=>{state.visible+=48;render();});
+$('#random').addEventListener('click',()=>{const filtered_games=filtered(); if(filtered_games.length>0){const game=filtered_games[Math.floor(Math.random()*filtered_games.length)];window.open(game.link,'_blank','noopener,noreferrer');}});

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>Unblocked Games 2026 — Play 450+ Free Browser Games</title>
+<meta content="Play Unblocked Games 2026 and explore 450+ browser games across action, strategy, driving, puzzle, sports and casual categories." name="description"/>
+<link href="https://schoolgmsrgsw.github.io/School-unblocked/" rel="canonical"/>
+<meta content="Unblocked Games 2026 — 450 Free Online Games" property="og:title"/>
+<meta content="Explore Unblocked Games 2026 with 450+ browser titles, useful game guides, categories, favorites and recently played games." property="og:description"/>
+<meta content="https://schoolgmsrgsw.github.io/School-unblocked/" property="og:url"/>
+<meta content="website" property="og:type"/>
+<meta content="#080b14" name="theme-color"/>
+<link href="assets/logo.svg" rel="icon" type="image/svg+xml"/>
+<link href="assets/style.css" rel="stylesheet"/>
+<link href="assets/nav.css" rel="stylesheet"/>
+<link href="assets/home.css" rel="stylesheet"/>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="/"><img alt="Unblocked Games 2026" src="assets/logo.svg"/><span>Unblocked Games 2026</span></a>
+  <nav aria-label="Main navigation" class="main-nav">
+    <a aria-current="page" class="active" href="/">Home</a>
+    <a href="/#games">Games</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero">
+    <h1 class="visually-hidden">Unblocked Games 2026 Games</h1>
+    <div class="search-row">
+      <label class="search"><span>⌕</span><input autocomplete="off" id="search" placeholder="Search 450 games…" type="search"/></label>
+      <button class="primary" id="random">Surprise me</button>
+    </div>
+  </section>
+
+  <section class="saved-section home-showcase" id="popular">
+    <div class="section-head">
+      <div><h2>Popular Games</h2></div>
+      <a class="section-link" href="#games">View all games →</a>
+    </div>
+    <div class="game-grid" id="popularGrid"></div>
+  </section>
+
+  <section class="catalog" id="games">
+    <div class="section-head">
+      <div><h2>All games</h2></div>
+      <span class="result-count" id="resultCount"></span>
+    </div>
+    <div class="controls">
+      <div aria-label="Game categories" class="chips" id="categories"></div>
+      <select aria-label="Sort games" id="sort">
+        <option value="name">A–Z</option>
+        <option value="popular">Most popular</option>
+      </select>
+    </div>
+    <div aria-live="polite" class="game-grid" id="gameGrid"></div>
+    <div class="empty" hidden="" id="empty"><strong>No games found</strong><span>Try another name or category.</span></div>
+    <button class="load-more" id="loadMore">Load more games</button>
+  </section>
+</main>
+
+<footer>
+  <p class="footer-seo-copy">Explore Unblocked Games 2026 and discover action, puzzle, sports, racing, strategy and casual browser games in one organized catalog.</p>
+  <a class="brand" href="/"><img alt="Unblocked Games 2026" src="assets/logo.svg"/></a>
+</footer>
+
+<script defer="" src="assets/app.js"></script>
+</body>
+</html>
